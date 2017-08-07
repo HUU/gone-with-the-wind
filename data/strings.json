@@ -1,0 +1,14 @@
+{
+    "NoGameRunning": "There is no trivia game running right now.  Say %sstart to begin.",
+    "GameAlreadyStarted": "The game is already started, you can %sstop it if you want.",
+    "NumberOfQuestions": "I know %s questions.",
+    "GameStopped": "The game has been stopped. Say %sstart to begin again.",
+    "GameStarted": "Trivia started, say %sstop to end the game.",
+    "Hint": "Hint: %s (%s secs left)",
+    "Timeout": "Time's up! The answer was %s",
+    "InactivityShutdown": "Too many unanswered questions, stopping trivia.",
+    "CorrectAnswer": "%s got it!  The answer was %s.  %s answered it in %s seconds and their score is now %s.",
+    "Ask": "Question: %s",
+    "Reconfigured": "Set %s to %s",
+    "LeaderboardLine": "%s. %s (%s)"
+}
