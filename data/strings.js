@@ -53,3 +53,9 @@ module.exports.LeaderboardLine = function (place, playerMention, score) {
 module.exports.EscapeForDiscord = function (str) {
     return str.replace(/_/g, "\\_");
 }
+
+/* I'm so lazy */
+module.exports.Help = function () {
+    var prefix = config.get("commandPrefix")
+    return util.format(strings.Help, prefix, prefix, prefix, prefix);
+}

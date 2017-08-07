@@ -10,5 +10,6 @@
     "CorrectAnswer": "%s got it!  The answer was %s.  %s answered it in %s seconds and their score is now %s.",
     "Ask": "Question: %s",
     "Reconfigured": "Set %s to %s",
-    "LeaderboardLine": "%s. %s (%s)"
+    "LeaderboardLine": "%s. %s (%s)",
+    "Help": "Gone with the Wind, a trivia chat bot.\r\nhttps://github.com/huu/gone-with-the-wind\r\n%sstart - begin game\r\n%sstop - end game\r\n%sscore - scoreboard for current game\r\n%srepeat - repeat last question"
 }

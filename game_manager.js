@@ -39,6 +39,10 @@ var GameManager = function () {
                     self.reportQuestionCount(message);
                     break;
 
+                case "help":
+                    self.sendHelp(message);
+                    break;
+
                 case "cfg":
                     self.reconfigure(message, text.substring(3).trim());
                     break;
@@ -47,6 +51,10 @@ var GameManager = function () {
             self.checkAnswer(message);
         }
     };
+
+    this.sendHelp = function (message) {
+        message.reply(strings.Help());
+    }
 
     this.startGame = function (message) {
         if (self._currentGame) {
