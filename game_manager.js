@@ -14,7 +14,7 @@ var GameManager = function () {
         console.log("Registered chat commands.");
         discordClient.channels.filter(function (c) {
             return c.name.toUpperCase() === config.get("channel").toUpperCase();
-        }).forEach(function (snowflake, channel) {
+        }).forEach(function (channel) {
             channel.send(strings.Hello());
         })
     };
