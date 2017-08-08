@@ -2,6 +2,7 @@ const _ = require('underscore');
 const model = require('./model');
 const strings = require('./data/strings.js');
 const config = require('./config.js');
+const package = require('./package.json');
 
 var GameManager = function () {
     var self = this;
@@ -16,7 +17,7 @@ var GameManager = function () {
             return c.name.toUpperCase() === config.get("channel").toUpperCase() &&
                 c.type == 'text';
         }).forEach(function (channel) {
-            channel.send(strings.Hello());
+            channel.send(strings.Hello(package.version));
         })
     };
 

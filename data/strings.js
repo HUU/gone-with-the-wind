@@ -54,8 +54,8 @@ module.exports.EscapeForDiscord = function (str) {
     return str.replace(/_/g, "\\_");
 }
 
-module.exports.Hello = function () {
-    return util.format(strings.Hello, process.env.npm_package_version)
+module.exports.Hello = function (version) {
+    return util.format(strings.Hello, version)
 }
 
 /* I'm so lazy */
