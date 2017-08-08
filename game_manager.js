@@ -213,7 +213,6 @@ var GameManager = function () {
     this.reconfigure = function (message, parameterText) {
         var params = parameterText.match(/\S+/g) || []
         if (params.length == 2) {
-            self.stopGame(message);
             config.set(params[0], params[1]);
             message.reply(strings.Reconfigured(params[0], params[1]));
         }
