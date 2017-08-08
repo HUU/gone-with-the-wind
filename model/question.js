@@ -56,6 +56,7 @@ Question.prototype.getVowels = function () {
             vowels += '_';
         }
     }
+    return vowels;
 }
 
 Question.prototype.getHint = function (hintNumber = this._hintTicks) {

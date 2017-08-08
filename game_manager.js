@@ -14,12 +14,15 @@ var GameManager = function () {
     this.listenTo = function (discordClient) {
         discordClient.on('message', self.receiveMessage);
         console.log("Registered chat commands.");
-        discordClient.channels.filter(function (c) {
-            return c.name.toUpperCase() === config.get("channel").toUpperCase() &&
-                c.type == 'text';
-        }).forEach(function (channel) {
-            channel.send(strings.Hello(package.version));
-        })
+
+        if (config.get("env") === 'production') {
+            discordClient.channels.filter(function (c) {
+                return c.name.toUpperCase() === config.get("channel").toUpperCase() &&
+                    c.type == 'text';
+            }).forEach(function (channel) {
+                channel.send(strings.Hello(package.version));
+            });
+        }    
     };
 
     this.receiveMessage = function (message) {
@@ -78,10 +81,10 @@ var GameManager = function () {
             return;
         }
 
-        Self._sentVowels = true;
+        self._sentVowels = true;
         message.reply(strings.Hint(
-            self._currentGame.getCurrentQuestion().getVowels(),
-            Math.ceil(question.getCurrentQuestion().getTimeRemainingMs() / 1000)));
+            strings.EscapeForDiscord(self._currentGame.getCurrentQuestion().getVowels()),
+            Math.ceil(self._currentGame.getCurrentQuestion().getTimeRemainingMs() / 1000)));
     }
 
     this.startGame = function (message) {
