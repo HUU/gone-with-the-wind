@@ -15,19 +15,32 @@ var Question = function (question, answer) {
     this._generateNextHint = function (replaceCharCount, lastHint) {
         var newHint = lastHint;
         if (replaceCharCount == 0) {
-            for (var i = 0; i < newHint.length && newHint[i] === '_'; i++) { }
-            newHint = this._replaceAtIndex(newHint, i, '_');
+            for (var i = 0; i < newHint.length && newHint[i] === '-'; i++) { }
+            newHint = this._replaceAtIndex(newHint, i, '-');
         } else {
             for (replaced = 0; replaced < replaceCharCount;) {
                 var i = _.random(newHint.length - 1);
-                if (newHint[i] !== '_') {
-                    newHint = this._replaceAtIndex(newHint, i, '_');
+                if (newHint[i] !== '-' && newHint[i] !== ' ') {
+                    newHint = this._replaceAtIndex(newHint, i, '-');
                     replaced++;
                 }
             }
         }    
         return newHint;
     };
+
+    this._makeVowels = function () {
+            var vowels = "";
+            for (var i = 0; i < this._answer.length; i++) {
+                var char = this._answer[i];
+                if (/[aeiouAEIOU ]/.test(char)) {
+                    vowels += char;
+                } else {
+                    vowels += '-';
+                }
+            }
+            return vowels;
+    }
 
     this._replaceAtIndex = function(str, index, replacement) {
         return str.substr(0, index) + replacement + str.substr(index + replacement.length);
@@ -46,18 +59,7 @@ Question.prototype.getHintTicks = function () {
     return this._hintTicks;
 }
 
-Question.prototype.getVowels = function () {
-    var vowels = "";
-    for (var i = 0; i < this.answer().length; i++) {
-        var char = this.answer()[i];
-        if (/[aeiouAEIOU]/.test(char)) {
-            vowels += char;
-        } else {
-            vowels += '_';
-        }
-    }
-    return vowels;
-}
+Question.prototype.getVowels = 
 
 Question.prototype.getHint = function (hintNumber = this._hintTicks) {
     console.log("Giving hint", hintNumber);
@@ -66,10 +68,12 @@ Question.prototype.getHint = function (hintNumber = this._hintTicks) {
 
 Question.prototype.start = function (timeoutCallback, hintCallback) {
     const maxHints = config.get("maxHints");
+    var spaces = this._answer.match(/([\s]+)/g).length
     var replaceCount = Math.floor(this._answer.length / maxHints);
-    for (var hint = maxHints - 1; hint >= 0; hint--) {
+    for (var hint = maxHints - 1; hint >= 1; hint--) {
         this.hints[hint] = this.hints[hint + 1] ? this._generateNextHint(replaceCount, this.hints[hint + 1]) : this._answer;
     }
+    this.hints[0] = this._makeVowels();
     console.log(this.hints);
 
     this._timeLimit = config.get("questionTimeLimit") * 1000;
