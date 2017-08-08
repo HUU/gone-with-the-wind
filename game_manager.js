@@ -12,13 +12,23 @@ var GameManager = function () {
     this.listenTo = function (discordClient) {
         discordClient.on('message', self.receiveMessage);
         console.log("Registered chat commands.");
+        discordClient.channels.filter(function (c) {
+            return c.name.toUpperCase() === config.get("channel").toUpperCase();
+        }).forEach(function (snowflake, channel) {
+            channel.send(strings.Hello());
+        })
     };
 
     this.receiveMessage = function (message) {
+        if (message.channel.name.toUpperCase() !== config.get("channel").toUpperCase()) {
+            return;
+        }
+
         if (message.content.startsWith(config.get("commandPrefix"))) {
             console.log("Received command", message.content);
             var text = message.content.substring(config.get("commandPrefix").length);
             switch (text.split(" ")[0]) {
+                case "trivia":
                 case "start":    
                     self.startGame(message);
                     break;
@@ -95,6 +105,9 @@ var GameManager = function () {
     };
 
     this.chillOutAndThen = function (nextCallback) {
+        if (self._pauseRef) {
+            clearTimeout(self._pauseRef);
+        }    
         self._pauseRef = setTimeout(nextCallback, config.get("restPeriod") * 1000);
     };
 
@@ -169,6 +182,7 @@ var GameManager = function () {
                 Math.ceil(timeToAnswerMs / 1000),
                 newScore
             ));
+            self._currentGame.clearCurrentQuestion();
             self.chillOutAndThen(self.askQuestion);
         }
     };
@@ -177,6 +191,7 @@ var GameManager = function () {
     this.reconfigure = function (message, parameterText) {
         var params = parameterText.match(/\S+/g) || []
         if (params.length == 2) {
+            self.stopGame(message);
             config.set(params[0], params[1]);
             message.reply(strings.Reconfigured(params[0], params[1]));
         }

@@ -11,5 +11,6 @@
     "Ask": "Question: %s",
     "Reconfigured": "Set %s to %s",
     "LeaderboardLine": "%s. %s (%s)",
-    "Help": "Gone with the Wind, a trivia chat bot.\r\nhttps://github.com/huu/gone-with-the-wind\r\n%sstart - begin game\r\n%sstop - end game\r\n%sscore - scoreboard for current game\r\n%srepeat - repeat last question"
+    "Help": "Gone with the Wind, a trivia chat bot.\r\nhttps://github.com/huu/gone-with-the-wind\r\n%sstart - begin game\r\n%sstop - end game\r\n%sscore - scoreboard for current game\r\n%srepeat - repeat last question",
+    "Hello": "I was just rebooted, running version %s"
 }

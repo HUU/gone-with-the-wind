@@ -45,6 +45,13 @@ Game.prototype.advanceQuestion = function () {
     return this._currentQuestion = next;
 };
 
+Game.prototype.clearCurrentQuestion = function () {
+    if (this._currentQuestion) {
+        this._currentQuestion.stop();
+        this._currentQuestion = null;
+    }
+}
+
 Game.prototype.getCurrentQuestion = function () {
     return this._currentQuestion;
 };

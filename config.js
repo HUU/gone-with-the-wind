@@ -1,6 +1,12 @@
 const convict = require('convict');
 
 var config = convict({
+    channel: {
+        doc: "The channel the bot is active within",
+        default: "general",
+        format: String,
+        env: "TRIVIA_CHANNEL",
+    },
     botToken: {
         doc: "The discord bot secret token",
         default: "",
