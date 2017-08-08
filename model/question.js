@@ -46,6 +46,18 @@ Question.prototype.getHintTicks = function () {
     return this._hintTicks;
 }
 
+Question.prototype.getVowels = function () {
+    var vowels = "";
+    for (var i = 0; i < this.answer().length; i++) {
+        var char = this.answer()[i];
+        if (/[aeiouAEIOU]/.test(char)) {
+            vowels += char;
+        } else {
+            vowels += '_';
+        }
+    }
+}
+
 Question.prototype.getHint = function (hintNumber = this._hintTicks) {
     console.log("Giving hint", hintNumber);
     return this.hints[hintNumber - 1];

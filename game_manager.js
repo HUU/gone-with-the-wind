@@ -9,6 +9,7 @@ var GameManager = function () {
 
     this._currentGame = null;
     this._pauseRef = null;
+    this._sentVowels = false;
 
     this.listenTo = function (discordClient) {
         discordClient.on('message', self.receiveMessage);
@@ -47,6 +48,10 @@ var GameManager = function () {
                     self.reportScore(message);
                     break;
                     
+                case "vowels":
+                    self.sendVowels(message);
+                    break;
+
                 case "qcount":
                     self.reportQuestionCount(message);
                     break;
@@ -68,6 +73,17 @@ var GameManager = function () {
         message.reply(strings.Help());
     }
 
+    this.sendVowels = function (message) {
+        if (!self._currentGame || !self._currentGame.getCurrentQuestion() || self._sentVowels) {
+            return;
+        }
+
+        Self._sentVowels = true;
+        message.reply(strings.Hint(
+            self._currentGame.getCurrentQuestion().getVowels(),
+            Math.ceil(question.getCurrentQuestion().getTimeRemainingMs() / 1000)));
+    }
+
     this.startGame = function (message) {
         if (self._currentGame) {
             message.reply(strings.GameAlreadyStarted());
@@ -86,6 +102,7 @@ var GameManager = function () {
             return;
         }
 
+        self._sentVowels = false;
         if (self._pauseRef) {
             self._pauseRef = null;
         }
