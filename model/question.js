@@ -68,7 +68,7 @@ Question.prototype.getHint = function (hintNumber = this._hintTicks) {
 
 Question.prototype.start = function (timeoutCallback, hintCallback) {
     const maxHints = config.get("maxHints");
-    var spaces = this._answer.match(/([\s]+)/g).length
+    var spaces = (this._answer.match(/([\s]+)/g) || []).length
     var replaceCount = Math.floor(this._answer.length / maxHints);
     for (var hint = maxHints - 1; hint >= 1; hint--) {
         this.hints[hint] = this.hints[hint + 1] ? this._generateNextHint(replaceCount, this.hints[hint + 1]) : this._answer;

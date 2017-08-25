@@ -1,6 +1,6 @@
 {
   "name": "gone-with-the-wind",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A chat bot for discord.",
   "main": "index.js",
   "dependencies": {
